@@ -5,9 +5,9 @@ from tkinter import messagebox
 
 class TIC_TAC_TOE:
     """
-    Implementing the game: Tic-Tac-Toe.
-    against the computer with artificial intelligence
-    with the help of visualization.
+Initializes the game window, creates a menu bar with options for resetting the game.
+Contains methods to create the game board, handle user clicks, check for game-winning conditions,
+and execute the computer's move using a basic AI algorithm (minimax).
     """
     root = Tk()
     root.title('Tic-Tac-Toe')
@@ -70,6 +70,7 @@ class TIC_TAC_TOE:
             a, b, c = sequence
             if board[a] == board[b] == board[c] == marker:
                 return 1 if marker == "X" else -1
+
         if all(value == "X" or value == "O" for value in board):
             return 0
 
@@ -83,7 +84,7 @@ class TIC_TAC_TOE:
         if end == 1: return -1
         if end == 0: return 0
         max_eval = -100
-        for move in self.children(start, tune=False):
+        for move in self.children(start):
             new_state = move
             eval = self.player_MIN(new_state)
             max_eval = max(max_eval, eval)
@@ -107,7 +108,6 @@ class TIC_TAC_TOE:
 
     def minmax_decision(self, initial_state, best_score=-100, player_X=False):
         """
-
         :param initial_state: starting position
         :return: the *operation* of the highest value
         """
@@ -129,7 +129,7 @@ class TIC_TAC_TOE:
 
         board_options = []
         for i in range(len(list_bord)):
-            if list_bord[i] != "X" or list_bord[i] != "O":
+            if list_bord[i] != "X" and list_bord[i] != "O":
                 board_options.append(i)
         new_board_after_computer_course = self.minmax_decision(list_bord)
         lok = 0
@@ -161,7 +161,8 @@ class TIC_TAC_TOE:
                 self.buttons[a].config(bg="red" if self.your_turn else "green")
                 self.buttons[b].config(bg="red" if self.your_turn else "green")
                 self.buttons[c].config(bg="red" if self.your_turn else "green")
-                return 1 if marker == "x" else -1
+                return 1 if marker == "X" else -1
+        return 0 # No winner yet
 
     def b_click(self, i):
         """
