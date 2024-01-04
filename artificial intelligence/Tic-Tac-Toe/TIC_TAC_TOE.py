@@ -5,9 +5,9 @@ from tkinter import messagebox
 
 class TIC_TAC_TOE:
     """
-Initializes the game window, creates a menu bar with options for resetting the game.
-Contains methods to create the game board, handle user clicks, check for game-winning conditions,
-and execute the computer's move using a basic AI algorithm (minimax).
+    Initializes the game window, creates a menu bar with options for resetting the game.
+    Contains methods to create the game board, handle user clicks, check for game-winning conditions,
+    and execute the computer's move using a basic AI algorithm (minimax).
     """
     root = Tk()
     root.title('Tic-Tac-Toe')
@@ -18,7 +18,8 @@ and execute the computer's move using a basic AI algorithm (minimax).
 
     def __init__(self):
         """
-
+        Initializes the TIC_TAC_TOE class.
+        Sets initial conditions, creates the game board, and starts the main loop.
         """
         self.your_turn = True
         self.create_board()
@@ -28,25 +29,28 @@ and execute the computer's move using a basic AI algorithm (minimax).
 
     def create_board(self):
         """
-
-        :return:
-        """
+         Creates the game board with nine buttons representing the Tic-Tac-Toe grid.
+         Configures the appearance and layout of the board buttons.
+         """
         self.buttons = [Button(self.root, text=" ", font=("Helvetica", 40), height=3, width=6, bg="SystemButtonFace",
                                command=lambda i=_: self.b_click(i)) for _ in range(9)]
         for i in range(9):
             self.buttons[i].grid(row=i // 3, column=i % 3)
-        return self.buttons
+
 
 
     def children(self, arr, tune=False):
         """
+        Generates a list of potential child states from the current game state.
+        These child states represent possible moves that can be made by the 'X' or 'O' player.
 
-        :param arr:
-        :param tune:
-        :return:
+        :param arr: The current game state represented as a list.
+        :param tune: A boolean flag indicating whether it's 'X' or 'O' player's turn.
+                     Defaults to False (for 'X' player's turn).
+        :return: A list of possible future game states resulting from available moves.
         """
         H = []
-        marker = "X" # if tune else "O"
+        marker = "X" if tune else "O"
         for i in range(len(arr)):
             new_arr = arr[:]
             if new_arr[i] != "X" and new_arr[i] != "O":
@@ -76,9 +80,10 @@ and execute the computer's move using a basic AI algorithm (minimax).
 
     def player_MAX(self, start):
         """
-        Calculates the best king for him
-        :param start:  One of the game modes of Play X.
-        :return: the most optimal move for min
+        Determines the best move for 'X' using the minimax algorithm.
+        Calculates the highest value move for 'X'.
+        :param start: Current state of the game for 'X'.
+        :return: The evaluation value of the best move for 'X'.
         """
         end = self.game_over(board=start, marker="X")
         if end == 1: return -1
@@ -166,9 +171,9 @@ and execute the computer's move using a basic AI algorithm (minimax).
 
     def b_click(self, i):
         """
-        Checks if the move is legal
-        :param i:
-        :return:
+        Handles button clicks on the game board.
+        Checks if the move is legal, updates the board, and checks for a win/draw.
+        :param i: Index of the button clicked on the board.
         """
         b = self.buttons[i]
         if b["text"] == " " and self.your_turn:
@@ -186,4 +191,5 @@ and execute the computer's move using a basic AI algorithm (minimax).
             messagebox.showerror("Tic Tac Toe", "Try playing somewhere else!")
 
 
-x = TIC_TAC_TOE()
+if __name__ == "__main__":
+    x = TIC_TAC_TOE()
